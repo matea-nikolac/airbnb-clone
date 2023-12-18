@@ -13,3 +13,11 @@ export const registerUser = async (req, res) => {
 }
 
 //* LOGIN ROUTE
+
+export const loginUser = async (req, res) => {
+  try {
+    //code
+  } catch (error) {
+    sendError(error, res)
+  }
+}
