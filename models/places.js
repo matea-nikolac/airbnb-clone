@@ -13,4 +13,5 @@ const placeSchema = new mongoose.Schema({
   //! Add reviews here
 })
 
+
 export default mongoose.model('Place', placeSchema)
