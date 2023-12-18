@@ -1,6 +1,6 @@
 import express from 'express'
 import { createPlace, getPlaces, getSinglePlace } from '../controllers/places.js'
-import { registerUser } from '../controllers/auth.js'
+import { loginUser, registerUser } from '../controllers/auth.js'
 const router = express.Router()
 
 router.route('/places')
@@ -12,4 +12,8 @@ router.route('/places/:id')
   
 router.route('/register')
   .post(registerUser)
+
+router.route('/login')
+  .post(loginUser)
+  
 export default router
