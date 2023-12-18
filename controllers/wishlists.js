@@ -30,7 +30,7 @@ export const addToWishlist = async (req, res) => {
       await wishlist.save()
       return res.status(201).json(wishlist)
     } else {
-      return res.status(409).json({ error: 'The place is already in the wishlist' })
+      return res.status(409).json({ error: 'The place is already in the wishlist' }) 
     }
   } catch (error) {
     sendError(error, res)

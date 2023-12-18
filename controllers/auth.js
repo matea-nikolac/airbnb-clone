@@ -26,8 +26,6 @@ export const loginUser = async (req, res) => {
       throw new Error()
     }
 
-    console.log(userToLogin._id)
-    
     const token = jwt.sign({ sub: userToLogin._id }, process.env.SECRET, { expiresIn: '7d' })
     
     return res.json({ message: `Welcome back ${userToLogin.username}`, token: `${token}` })
