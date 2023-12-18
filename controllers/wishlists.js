@@ -2,17 +2,16 @@ import { NotFound, sendError } from '../config/errors.js'
 import User from '../models/users.js'
 import Wishlist from '../models/wishlists.js'
 
-// export const getWishlist = async (req, res) => {
-//   try {
-//     const { id } = req.params
-//     const place = await User.findById(id)
-//     if (!place) throw new NotFound('Place not found')
-
-//     const wihslist = 
-//   } catch (error) {
-//     sendError(error, res)
-//   }
-// }
+export const getWishlist = async (req, res) => {
+  try {
+    const { userId } = req.params
+    const wishlist = await Wishlist.findOne({ owner: userId }).populate('places')
+    return res.json(wishlist)
+    
+  } catch (error) {
+    sendError(error, res)
+  }
+}
 
 export const addToWishlist = async (req, res) => {
   try {
