@@ -8,6 +8,19 @@ const userSchema = new mongoose.Schema({
   profileImage: { type: String },
 })
 
+userSchema.virtual('wishlists', {
+  ref: 'Wishlist',  
+  localField: '_id', 
+  foreignField: 'owner', 
+})
+
+userSchema.set('toJSON', {
+  virtuals: true,
+  transform: function(doc, ret){
+    delete ret.password
+  },
+})
+
 userSchema
   .virtual('passwordConfirmation')
   .set(function(userPasswordConfirmation){
