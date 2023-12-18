@@ -26,7 +26,7 @@ export const loginUser = async (req, res) => {
     const userIsValidated = await userToLogin.validatePassword(password)
 
     if (!userToLogin || !userIsValidated){
-      throw new Error('oops')
+      throw new Error()
     }
 
     const token = jwt.sign({ sub: userToLogin._id }, process.env.SECRET, { expiresIn: '7d' })
