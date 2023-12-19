@@ -3,6 +3,7 @@ import { createPlace, getPlaces, getSinglePlace } from '../controllers/places.js
 import { loginUser, registerUser } from '../controllers/auth.js'
 import { secureRoute } from './secureRoute.js'
 import { addToWishlist, getWishlist } from '../controllers/wishlists.js'
+import { addNewTrip, getSingleTrip, getTrips } from '../controllers/trips.js'
 const router = express.Router()
 
 router.route('/places')
@@ -21,8 +22,16 @@ router.route('/login')
 router.route('/users/:userId/wishlist')
   .get(secureRoute, getWishlist)
 
-
-router.route('/users/:userId/wishlist/:placeId')
+router.route('/users/:userId/wishlist')
   .post(secureRoute, addToWishlist)
 
+router.route('/users/:userId/trips')
+  .post(secureRoute, addNewTrip)
+
+router.route('/users/:userId/trips')
+  .get(secureRoute, getTrips)
+
+router.route('/users/:userId/trips/:tripId')
+  .get(secureRoute, getSingleTrip)
+  
 export default router
