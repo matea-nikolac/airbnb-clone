@@ -15,7 +15,10 @@ export const getWishlist = async (req, res) => {
 
 export const addToWishlist = async (req, res) => {
   try {
-    const { userId, placeId } = req.params
+
+    const { userId } = req.params
+    const { placeId } = req.body
+    
     let wishlist = await Wishlist.findOne({ owner: userId }).populate('owner').populate('places')
     
     if (!wishlist) {
