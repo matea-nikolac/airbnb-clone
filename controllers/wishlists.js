@@ -6,6 +6,7 @@ export const getWishlist = async (req, res) => {
   try {
     const { userId } = req.params
     const wishlist = await Wishlist.findOne({ owner: userId }).populate('places')
+    console.log(wishlist)
     return res.json(wishlist)
     
   } catch (error) {
@@ -19,7 +20,7 @@ export const addToWishlist = async (req, res) => {
     const { userId } = req.params
     const { placeId } = req.body
     
-    let wishlist = await Wishlist.findOne({ owner: userId }).populate('owner').populate('places')
+    let wishlist = await Wishlist.findOne({ owner: userId })
     
     if (!wishlist) {
       wishlist = await Wishlist.create({ owner: userId, places: [] })
@@ -30,6 +31,8 @@ export const addToWishlist = async (req, res) => {
     if (!isPlaceAlreadyAdded){
       wishlist.places.push(placeId)
       await wishlist.save()
+
+      wishlist = await wishlist.populate('owner places')
       return res.status(201).json(wishlist)
     } else {
       return res.status(409).json({ error: 'The place is already in the wishlist' }) 
