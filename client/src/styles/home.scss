@@ -1,15 +1,35 @@
 .homepage {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  padding: 20px;
+
+  .categories-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .category-button{
+      font-size: 13px;
+      padding-bottom: 10px;
+      margin: 14px;
+      background-color: white;
+      border: none;
+      color: #5a5a5a;
+      // to ensure that the 'places-container' does not shift downwards when a category is hovered:
+      border-bottom: 2px solid transparent; 
+      transition: border-bottom 0.2s ease;
+    }
+
+    .category-button:hover{
+      color:black;
+      border-bottom: 2px solid #c3c2c2;
+    }
+  }
 
   .places-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    padding: 20px;
+  
   }
 
   .place-card {
