@@ -12,7 +12,7 @@ export default [
       'https://a0.muscache.com/im/pictures/633a9f52-ab56-4ee8-9c01-9ff61e13b181.jpg?im_w=480',
       'https://a0.muscache.com/im/pictures/2325bffd-add2-4d00-a997-e28e31109f9a.jpg?im_w=480'
     ],
-    category: 'Cabin',
+    category: 'Cabins',
     location: 'Forest Retreat, USA', // Updated location
     reviews: [
       { text: 'Amazing place!' },
@@ -33,7 +33,7 @@ export default [
       'https://a0.muscache.com/im/pictures/44230315-d087-4ced-abbe-38b4138fa0ff.jpg?im_w=480',
       'https://a0.muscache.com/im/pictures/9a80a785-de0d-4c09-9599-f5c33871af94.jpg?im_w=480'
     ],
-    category: 'Beach House',
+    category: 'Amazing Views',
     location: 'Seaside Paradise, USA', // Updated location
     reviews: [
       { text: 'Breathtaking views!' },
@@ -54,7 +54,7 @@ export default [
       'https://a0.muscache.com/im/pictures/prohost-api/Hosting-543913895450794296/original/1a42a1b5-8128-46f8-977b-962150bd8c6c.jpeg?im_w=480',
       'https://a0.muscache.com/im/pictures/prohost-api/Hosting-543913895450794296/original/9722e183-5c15-4f78-875c-becfe46e925c.jpeg?im_w=480'
     ],
-    category: 'Mountain Retreat',
+    category: 'Skiing',
     location: 'Serene Mountainside, USA', // Updated location
     reviews: [
       { text: 'Perfect getaway!' },

@@ -7,7 +7,8 @@ const Home = () => {
   const [ places, setPlaces ] = useState([])
   const [ categories, setCategories ] = useState([])
   const [ error, setError ] = useState('')
-
+  const [ filteredCategory, setFilteredCategory] = ''
+  const [ filteredPlaces, setFilteredPlaces ] = useState([])
   
   //fetch the categories
   useEffect(() => {
@@ -31,12 +32,24 @@ const Home = () => {
         const response = await axios.get('/api/places')
         const placeData = response.data
         setPlaces(placeData)
+        setFilteredPlaces(placeData)
       } catch (err) {
         setError(err)
       }
     }
     getPlaces()
   }, [])
+
+   //filter the places based on the selected category
+  const filterPlacesByCategory = (event) => {
+    const selectedCategory = event.target.value;
+  
+    const placesInsideSelectedCategory = places.filter(place => {
+      return place.category === selectedCategory;
+    });
+  
+    setFilteredPlaces(placesInsideSelectedCategory)
+  }
 
 return (
   <>
@@ -45,13 +58,13 @@ return (
         {categories && categories.map(category => (
           <div className='single-category'>
             <div className='category-image-div' style={{ backgroundImage: `url('${category.image})` }}></div>
-            <button className='category-button'>{category.name}</button>
+            <button className='category-button' value={category.name} onClick={filterPlacesByCategory}>{category.name}</button>
           </div>
         ))}
       </section>
       <section className='places-container'>
-      {places.length > 0 ?
-        places.map(place => {
+      {filteredPlaces.length > 0 ?
+        filteredPlaces.map(place => {
           // display all the places as cards on the home page
           const { _id, images, location, price_per_night } = place
           console.log(_id, images[0], location, price_per_night)
