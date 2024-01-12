@@ -1,25 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-//Components
+import './App.css';
 
-// import Home from './components/Home.js'
-// import Profile from './components/Profile.js'
-import PageNavbar from './components/common/PageNavBar.js'
-
-const App = () => {
-
+function App() {
   return (
-    <div className='main-container'>
-      <BrowserRouter>
-        <PageNavbar/>
-        <Routes>
-          {/* <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} /> */}
-        </Routes>
-        {/* <Footer /> */}
-      </BrowserRouter>
-    </div>
+    <h1>App</h1>
   )
 }
 
-export default App
+export default App;
