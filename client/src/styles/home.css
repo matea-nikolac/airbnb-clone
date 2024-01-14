@@ -1,15 +1,28 @@
-.homepage {
+.homepage .categories-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: row;
   justify-content: center;
-  padding: 20px;
+}
+.homepage .categories-container .category-button {
+  font-size: 13px;
+  padding-bottom: 10px;
+  margin: 14px;
+  background-color: white;
+  border: none;
+  color: #5a5a5a;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.2s ease;
+}
+.homepage .categories-container .category-button:hover {
+  color: black;
+  border-bottom: 2px solid #c3c2c2;
 }
 .homepage .places-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+  padding: 20px;
 }
 .homepage .place-card .image-container {
   border-radius: 8px;

@@ -1,17 +1,34 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+
 const Home = () => {
 
   const [ places, setPlaces ] = useState([])
+  const [ categories, setCategories ] = useState([])
   const [ error, setError ] = useState('')
 
+  
+  //fetch the categories
+  useEffect(() => {
+    const getCategories = async() => {
+      try {
+        const response = await axios.get('/api/categories')
+        const categoryData = response.data
+        console.log(categoryData)
+        setCategories(categoryData)
+      } catch (error) {
+        setError(error)
+      }
+    }
+    getCategories()
+  }, [])
 
+   //fetch the places
   useEffect(() => {
     const getPlaces = async () => {
       try {
         const response = await axios.get('/api/places')
-        console.log(response)
         const placeData = response.data
         setPlaces(placeData)
       } catch (err) {
@@ -24,7 +41,13 @@ const Home = () => {
 return (
   <>
     <section className='homepage'>
-      <section className="category-container">
+      <section className="categories-container">
+        {categories && categories.map(category => (
+          <div className='single-category'>
+            <div className='category-image-div' style={{ backgroundImage: `url('${category.image})` }}></div>
+            <button className='category-button'>{category.name}</button>
+          </div>
+        ))}
       </section>
       <section className='places-container'>
       {places.length > 0 ?
