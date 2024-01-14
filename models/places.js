@@ -15,6 +15,7 @@ const placeSchema = new mongoose.Schema({
   category: { type: String, required: true },
   location: { type: String, required: true },
   reviews: [reviewSchema],
+  price_per_night: { type: Number, required: true }, 
   //! Add owner here
   //! Add reviews here
 })
