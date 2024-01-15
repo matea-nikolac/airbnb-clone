@@ -1,7 +1,17 @@
+.homepage .search-container .search-bar .search-icon {
+  background-color: red;
+  width: 60px;
+}
 .homepage .categories-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+.homepage .categories-container .category-image-div {
+  width: 30px;
+  height: 30px;
+  background-position: center;
+  background-size: cover;
 }
 .homepage .categories-container .category-button {
   font-size: 13px;
