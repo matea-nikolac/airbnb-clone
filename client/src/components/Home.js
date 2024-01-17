@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import searchIcon from '../images/search-icon.png'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { parseISO } from 'date-fns';
+// import { startSession } from 'mongoose';
 
 
 const Home = () => {
@@ -9,23 +13,10 @@ const Home = () => {
   const [ categories, setCategories ] = useState([])
   const [ error, setError ] = useState('')
   const [ filteredPlaces, setFilteredPlaces ] = useState([])
-  const [searchWhere, setSearchWhere] = useState('');
+  const [searchedLocation, setSearchedLocation] = useState('')
+  const [selectedStartDate, setSelectedStartDate] = useState('')
+  const [selectedEndDate, setSelectedEndDate] = useState('')
 
-  // const searchFieldContent = [
-  //   {
-  //     title: 'Where',
-  //     placeholder: 'Search destinations'
-  //   },
-  //   {
-  //     title: 'When',
-  //     placeholder: 'Add dates'
-  //   },
-  //   {
-  //     title: 'Who',
-  //     placeholder: 'Add guests'
-  //   },
-  // ]
-  
   //fetch the categories
   useEffect(() => {
     const getCategories = async() => {
@@ -55,12 +46,6 @@ const Home = () => {
     getPlaces()
   }, [])
 
-  const handleWhereInputChange = (e) => {
-    setSearchWhere(e.target.value)
-    console.log(setSearchWhere)
-    const searchedPlaces = places.filter(place => place.location.toLowerCase().includes(searchWhere.toLowerCase()))
-    setFilteredPlaces(searchedPlaces)
-    }
 
    //filter the places based on the selected category
   const filterPlacesByCategory = (category) => {
@@ -71,6 +56,30 @@ const Home = () => {
     });
   
     setFilteredPlaces(placesInsideSelectedCategory)
+  }
+
+  // handle the location search
+  const handleWhereInputChange = (e) => {
+    setSearchedLocation(e.target.value)
+    const searchedPlaces = places.filter(place => place.location.toLowerCase().includes(searchedLocation.toLowerCase()))
+    setFilteredPlaces(searchedPlaces)
+    }
+
+  // handle the start date search
+  const handleStartDateInputChange = (date) => {
+    // Parse the selected date to ensure it is represented as a JavaScript Date object
+    // `date.toISOString()` converts the selected date to an ISO 8601 string
+    // `parseISO` then parses this string into a JavaScript Date object for consistent handling
+    const startDate = parseISO(date.toISOString())
+    setSelectedStartDate(startDate)
+
+  }
+
+  // handle the end date search
+  const handleEndDateInputChange = (date) => {
+    // const endDate = date.toISOString()
+    const endDate = parseISO(date.toISOString())
+    setSelectedEndDate(endDate)
   }
 
 return (
@@ -86,7 +95,7 @@ return (
         </div>
         <input
           type='text'
-          value={searchWhere}
+          value={searchedLocation}
           onChange={handleWhereInputChange}
           placeholder='Search destinations'
           className='search-input'
@@ -96,15 +105,47 @@ return (
     </div>
 
     {/* Second item */}
-    <div className='search-item' id='when'>
+    <div className='search-item' id='start-date'>
       <div className='search-paragraph-and-input'>
         <div>
           <p className='search-paragraph'>When</p>
         </div>
-        <input
+        {/* <input
           type='text'
-          // onChange={() => handleWhen()}
+          onChange={() => handleWhenInputChange()}
           placeholder='Add dates'
+          className='search-input'
+        /> */}
+        <DatePicker
+          selected={selectedStartDate}
+          value={selectedStartDate}
+          maxDate={selectedEndDate}
+          onChange={handleStartDateInputChange}
+          placeholderText='Add dates'
+          className='search-input'
+        />
+      </div>
+      <div className='search-item-last-div' id='when'></div>
+    </div>
+
+     {/* Third item */}
+    <div className='search-item' id='end-date'>
+      <div className='search-paragraph-and-input'>
+        <div>
+          <p className='search-paragraph'>When</p>
+        </div>
+        {/* <input
+          type='text'
+          onChange={() => handleWhenInputChange()}
+          placeholder='Add dates'
+          className='search-input'
+        /> */}
+        <DatePicker
+          selected={selectedEndDate}
+          value={selectedEndDate}
+          minDate={selectedStartDate}
+          onChange={handleEndDateInputChange}
+          placeholderText='Add dates'
           className='search-input'
         />
       </div>
@@ -134,8 +175,12 @@ return (
 </section>
 
       <section className="categories-container">
-        {categories && categories.map(category => (
-          <div className='single-category-container' value={category.name} onClick={() => filterPlacesByCategory(category)}>
+        {categories && categories.map((category, index) => (
+          <div className='single-category-container' 
+          value={category.name} 
+          onClick={() => filterPlacesByCategory(category)}
+          key = {index}
+          >
             <div className='category-image'>
               <div className='category-image-div' style={{ backgroundImage: `url('${category.icon}` }}></div>
             </div>
@@ -145,12 +190,13 @@ return (
       </section>
       <section className='places-container'>
       {filteredPlaces.length > 0 ?
-        filteredPlaces.map(place => {
+        filteredPlaces.map((place, index) => {
           // display all the places as cards on the home page
-          const { _id, images, location, price_per_night } = place
+          const { images, location, price_per_night, availability } = place
+          console.log('backend type', typeof(availability))
           return (
-            <div className='place-card'>
-              <div className='image-container' key={_id}>
+            <div className='place-card' key = {index}>
+              <div className='image-container'>
                 <div className='image-div' style={{ backgroundImage: `url('${images[0]}')` }}></div>
               </div>
               <p className='location-title'>{location}</p>
