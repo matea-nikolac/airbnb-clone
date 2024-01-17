@@ -9,7 +9,21 @@ const Home = () => {
   const [ categories, setCategories ] = useState([])
   const [ error, setError ] = useState('')
   const [ filteredPlaces, setFilteredPlaces ] = useState([])
-  const inputField = [ 'Where', 'When', 'Who' ]
+
+  const searchFieldContent = [
+    {
+      title: 'Where',
+      placeholder: 'Search destinations'
+    },
+    {
+      title: 'When',
+      placeholder: 'Add dates'
+    },
+    {
+      title: 'Who',
+      placeholder: 'Add guests'
+    },
+  ]
   
   //fetch the categories
   useEffect(() => {
@@ -42,8 +56,8 @@ const Home = () => {
   }, [])
 
    //filter the places based on the selected category
-  const filterPlacesByCategory = (event) => {
-    const selectedCategory = event.target.value;
+  const filterPlacesByCategory = (category) => {
+    const selectedCategory = category.name
   
     const placesInsideSelectedCategory = places.filter(place => {
       return place.category === selectedCategory;
@@ -57,14 +71,31 @@ return (
     <section className='homepage'>
       <section className='search-container'>
         <div className="search-bar">
-          {inputField.map(inputItem => (
-            <input
-              type = 'text'
-               // value={when}
-                // onChange={(e) => setWhen(e.target.value)}
-              placeholder={inputItem}
-              className='search-input'
-            />
+          {searchFieldContent.map((item, index) => (
+            <>
+              <div 
+              className = 'search-item'
+              id={item.title.toLowerCase()}
+              key = {index}
+              >
+                <div className='search-paragraph-and-input'>
+                  <div>
+                    <p className='search-paragraph'>{item.title}</p>
+                  </div>
+                  <input
+                    type = 'text'
+                    // value={when}
+                      // onChange={(e) => setWhen(e.target.value)}
+                    placeholder={item.placeholder}
+                    className='search-input'
+                  />
+                </div>
+                <div className='search-item-last-div' id = {item.title.toLowerCase()} >
+
+                </div>
+
+              </div>
+            </>
           ))}
           <div className='search-icon'>
             <img src={searchIcon} alt='Search' />
@@ -73,11 +104,11 @@ return (
       </section>
       <section className="categories-container">
         {categories && categories.map(category => (
-          <div className='single-category-container'>
+          <div className='single-category-container' value={category.name} onClick={() => filterPlacesByCategory(category)}>
             <div className='category-image'>
               <div className='category-image-div' style={{ backgroundImage: `url('${category.icon}` }}></div>
             </div>
-            <button className='category-button' value={category.name} onClick={filterPlacesByCategory}>{category.name}</button>
+            <button className='category-button'>{category.name}</button>
           </div>
         ))}
       </section>
