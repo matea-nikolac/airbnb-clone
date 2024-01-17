@@ -9,21 +9,22 @@ const Home = () => {
   const [ categories, setCategories ] = useState([])
   const [ error, setError ] = useState('')
   const [ filteredPlaces, setFilteredPlaces ] = useState([])
+  const [searchWhere, setSearchWhere] = useState('');
 
-  const searchFieldContent = [
-    {
-      title: 'Where',
-      placeholder: 'Search destinations'
-    },
-    {
-      title: 'When',
-      placeholder: 'Add dates'
-    },
-    {
-      title: 'Who',
-      placeholder: 'Add guests'
-    },
-  ]
+  // const searchFieldContent = [
+  //   {
+  //     title: 'Where',
+  //     placeholder: 'Search destinations'
+  //   },
+  //   {
+  //     title: 'When',
+  //     placeholder: 'Add dates'
+  //   },
+  //   {
+  //     title: 'Who',
+  //     placeholder: 'Add guests'
+  //   },
+  // ]
   
   //fetch the categories
   useEffect(() => {
@@ -31,7 +32,6 @@ const Home = () => {
       try {
         const response = await axios.get('/api/categories')
         const categoryData = response.data
-        console.log(categoryData)
         setCategories(categoryData)
       } catch (error) {
         setError(error)
@@ -55,6 +55,13 @@ const Home = () => {
     getPlaces()
   }, [])
 
+  const handleWhereInputChange = (e) => {
+    setSearchWhere(e.target.value)
+    console.log(setSearchWhere)
+    const searchedPlaces = places.filter(place => place.location.toLowerCase().includes(searchWhere.toLowerCase()))
+    setFilteredPlaces(searchedPlaces)
+    }
+
    //filter the places based on the selected category
   const filterPlacesByCategory = (category) => {
     const selectedCategory = category.name
@@ -69,39 +76,63 @@ const Home = () => {
 return (
   <>
     <section className='homepage'>
-      <section className='search-container'>
-        <div className="search-bar">
-          {searchFieldContent.map((item, index) => (
-            <>
-              <div 
-              className = 'search-item'
-              id={item.title.toLowerCase()}
-              key = {index}
-              >
-                <div className='search-paragraph-and-input'>
-                  <div>
-                    <p className='search-paragraph'>{item.title}</p>
-                  </div>
-                  <input
-                    type = 'text'
-                    // value={when}
-                      // onChange={(e) => setWhen(e.target.value)}
-                    placeholder={item.placeholder}
-                    className='search-input'
-                  />
-                </div>
-                <div className='search-item-last-div' id = {item.title.toLowerCase()} >
-
-                </div>
-
-              </div>
-            </>
-          ))}
-          <div className='search-icon'>
-            <img src={searchIcon} alt='Search' />
-          </div>
+    <section className='search-container'>
+  <div className="search-bar">
+    {/* First item */}
+    <div className='search-item' id='where'>
+      <div className='search-paragraph-and-input'>
+        <div>
+          <p className='search-paragraph'>Where</p>
         </div>
-      </section>
+        <input
+          type='text'
+          value={searchWhere}
+          onChange={handleWhereInputChange}
+          placeholder='Search destinations'
+          className='search-input'
+        />
+      </div>
+      <div className='search-item-last-div' id='where'></div>
+    </div>
+
+    {/* Second item */}
+    <div className='search-item' id='when'>
+      <div className='search-paragraph-and-input'>
+        <div>
+          <p className='search-paragraph'>When</p>
+        </div>
+        <input
+          type='text'
+          // onChange={() => handleWhen()}
+          placeholder='Add dates'
+          className='search-input'
+        />
+      </div>
+      <div className='search-item-last-div' id='when'></div>
+    </div>
+
+    {/* Third item */}
+    <div className='search-item' id='who'>
+      <div className='search-paragraph-and-input'>
+        <div>
+          <p className='search-paragraph'>Who</p>
+        </div>
+        <input
+          type='text'
+          // onChange={() => handleWho()}
+          placeholder='Add guests'
+          className='search-input'
+        />
+      </div>
+    </div>
+
+    {/* Search icon */}
+    <div className='search-icon'>
+      <img src={searchIcon} alt='Search' />
+    </div>
+  </div>
+</section>
+
       <section className="categories-container">
         {categories && categories.map(category => (
           <div className='single-category-container' value={category.name} onClick={() => filterPlacesByCategory(category)}>
@@ -117,7 +148,6 @@ return (
         filteredPlaces.map(place => {
           // display all the places as cards on the home page
           const { _id, images, location, price_per_night } = place
-          console.log(_id, images[0], location, price_per_night)
           return (
             <div className='place-card'>
               <div className='image-container' key={_id}>
