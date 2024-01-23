@@ -11,7 +11,7 @@ const startServer = async () => {
     //parse incoming requests with JSON payloads
     app.use(express.json())
 
-    // start the mongoose server
+    //establish a connection to a MongoDB database
     await mongoose.connect(process.env.MONGO_URI)
 
     // capture incoming requests
@@ -19,7 +19,7 @@ const startServer = async () => {
       console.log(`Incoming request: ${req.method} ${req.url}`)
       next()
     })
-
+    
     // integrate the defined routes
     app.use('/api', router)
 

@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import searchIcon from '../images/search-icon.png'
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { parseISO } from 'date-fns';
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { parseISO } from 'date-fns'
 // import { startSession } from 'mongoose';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
 const Home = () => {
@@ -14,8 +16,10 @@ const Home = () => {
   const [ error, setError ] = useState('')
   const [ filteredPlaces, setFilteredPlaces ] = useState([])
   const [searchedLocation, setSearchedLocation] = useState('')
-  const [selectedStartDate, setSelectedStartDate] = useState('')
-  const [selectedEndDate, setSelectedEndDate] = useState('')
+  const [selectedStartDate, setSelectedStartDate] = useState(null)
+  const [selectedEndDate, setSelectedEndDate] = useState(null)
+  const [minEndDate, setMinEndDate] = useState( new Date ())
+  const [selectedGuestNumber, setSelectedGuestNumber] = useState(null)
 
   //fetch the categories
   useEffect(() => {
@@ -71,6 +75,7 @@ const Home = () => {
     // `date.toISOString()` converts the selected date to an ISO 8601 string
     // `parseISO` then parses this string into a JavaScript Date object for consistent handling
     const startDate = parseISO(date.toISOString())
+    console.log(startDate)
     setSelectedStartDate(startDate)
 
   }
@@ -80,7 +85,64 @@ const Home = () => {
     // const endDate = date.toISOString()
     const endDate = parseISO(date.toISOString())
     setSelectedEndDate(endDate)
+
   }
+
+  // once both start and end date are selected, check which places are available
+  useEffect(() => {
+  const getDatesInRange = () => {
+    const datesArray = []
+    const currentDate = new Date(selectedStartDate)
+
+    // create the dates in range array
+    while (currentDate <= selectedEndDate) {
+      const month = currentDate.getUTCMonth() + 1;
+      const day = currentDate.getUTCDate() + 1;
+      const dateString = `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+      console.log(typeof(dateString))
+      datesArray.push(dateString)
+      currentDate.setDate(currentDate.getDate() + 1)
+    }
+
+    // check if the a place is available on those days
+    places.forEach(place => {
+      const isAvailable = datesArray.every(date => place.availability.includes(date));
+      if (isAvailable) {
+        console.log(`Place "${place.name}" is available on all selected dates`);
+      }
+    });
+
+  }
+
+  if (selectedStartDate && selectedEndDate) {
+    getDatesInRange()
+  }
+  },[places, selectedStartDate, selectedEndDate]) 
+
+  // make sure that the minimal end date is either todayDate, or the selectedStartDate
+  useEffect(() => {
+    const handleMinEndDate = () => {
+      const todayDate = new Date()
+      setMinEndDate(selectedStartDate > todayDate ? selectedStartDate : todayDate)
+    }
+    if (selectedStartDate) {
+      handleMinEndDate()
+    }
+    },[places, selectedStartDate])
+
+  
+  // handle the guest number
+  const handleGuestNumber = (e) => {
+    setSelectedGuestNumber(e.target.value)
+  }
+
+    
+  // once all field are selected, search for places
+
+  // useEffect(() => {
+
+  // }, [places, searchedLocation, selectedStartDate, selectedEndDate, ])
+  
 
 return (
   <>
@@ -108,17 +170,12 @@ return (
     <div className='search-item' id='start-date'>
       <div className='search-paragraph-and-input'>
         <div>
-          <p className='search-paragraph'>When</p>
+          <p className='search-paragraph'>Check In</p>
         </div>
-        {/* <input
-          type='text'
-          onChange={() => handleWhenInputChange()}
-          placeholder='Add dates'
-          className='search-input'
-        /> */}
         <DatePicker
           selected={selectedStartDate}
           value={selectedStartDate}
+          minDate = {new Date()}
           maxDate={selectedEndDate}
           onChange={handleStartDateInputChange}
           placeholderText='Add dates'
@@ -132,18 +189,12 @@ return (
     <div className='search-item' id='end-date'>
       <div className='search-paragraph-and-input'>
         <div>
-          <p className='search-paragraph'>When</p>
+          <p className='search-paragraph'>Check Out</p>
         </div>
-        {/* <input
-          type='text'
-          onChange={() => handleWhenInputChange()}
-          placeholder='Add dates'
-          className='search-input'
-        /> */}
         <DatePicker
           selected={selectedEndDate}
           value={selectedEndDate}
-          minDate={selectedStartDate}
+          minDate={minEndDate} 
           onChange={handleEndDateInputChange}
           placeholderText='Add dates'
           className='search-input'
@@ -152,15 +203,15 @@ return (
       <div className='search-item-last-div' id='when'></div>
     </div>
 
-    {/* Third item */}
+    {/* Fourth item */}
     <div className='search-item' id='who'>
       <div className='search-paragraph-and-input'>
         <div>
           <p className='search-paragraph'>Who</p>
         </div>
         <input
-          type='text'
-          // onChange={() => handleWho()}
+          type='number'
+          onInput={(e) => handleGuestNumber(e)}
           placeholder='Add guests'
           className='search-input'
         />
@@ -169,7 +220,8 @@ return (
 
     {/* Search icon */}
     <div className='search-icon'>
-      <img src={searchIcon} alt='Search' />
+      {/* <img src={searchIcon} alt='Search' /> */}
+      <FontAwesomeIcon className='font-awesome-icon' icon={faSearch} alt='Search' />
     </div>
   </div>
 </section>
@@ -193,7 +245,6 @@ return (
         filteredPlaces.map((place, index) => {
           // display all the places as cards on the home page
           const { images, location, price_per_night, availability } = place
-          console.log('backend type', typeof(availability))
           return (
             <div className='place-card' key = {index}>
               <div className='image-container'>
