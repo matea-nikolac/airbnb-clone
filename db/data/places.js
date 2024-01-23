@@ -4,7 +4,7 @@ export default [
     amenities: ['WiFi', 'Kitchen', 'TV'],
     description: 'A beautiful cabin in the woods.',
     max_guests: 4,
-    availability: [new Date('2023-01-01'), new Date('2023-01-15')],
+    availability: ['01-24', '01-25', '01-26', '01-27', '01-28'],
     images: [
       'https://a0.muscache.com/im/pictures/967e7e0a-c938-4fb4-b4ff-2f12aaff50f4.jpg?im_w=960',
       'https://a0.muscache.com/im/pictures/47cb07f8-1aaa-472e-bb89-b08aef087c65.jpg?im_w=480',
@@ -25,7 +25,7 @@ export default [
     amenities: ['Ocean View', 'Private Pool', 'Gourmet Kitchen'],
     description: 'A stunning beachfront house with luxurious amenities.',
     max_guests: 8,
-    availability: [new Date('2023-02-01'), new Date('2023-02-10')],
+    availability: ['02-01', '03-01', '02-10'],
     images: [
       'https://a0.muscache.com/im/pictures/5be47eac-a063-4c7d-9ab3-5c38b58740b6.jpg?im_w=960',
       'https://a0.muscache.com/im/pictures/454d554d-56ad-4877-96a7-db6c97217ec7.jpg?im_w=480',
@@ -46,7 +46,7 @@ export default [
     amenities: ['Scenic Views', 'Fireplace', 'Hiking Trails'],
     description: 'Escape to a cozy mountain retreat surrounded by nature.',
     max_guests: 6,
-    availability: [new Date('2023-03-15'), new Date('2023-03-25')],
+    availability: ['03-15', '03-16', '03-25'],
     images: [
       'https://a0.muscache.com/im/pictures/prohost-api/Hosting-543913895450794296/original/7f406285-77aa-4659-8668-dc4e66af8362.jpeg?im_w=960',
       'https://a0.muscache.com/im/pictures/prohost-api/Hosting-543913895450794296/original/c9e05fef-eb83-427d-80c7-55117dc5791b.jpeg?im_w=480',
