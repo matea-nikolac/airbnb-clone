@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import searchIcon from '../images/search-icon.png'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { parseISO } from 'date-fns'
@@ -144,6 +143,10 @@ const Home = () => {
   // }, [places, searchedLocation, selectedStartDate, selectedEndDate, ])
   
 
+  const handleSearchClick = () => {
+    console.log('CLICKED')
+  }
+
 return (
   <>
     <section className='homepage'>
@@ -216,13 +219,18 @@ return (
           className='search-input'
         />
       </div>
+      {/* Search icon */}
+      <div className='search-div'>
+        {/* <img src={searchIcon} alt='Search' /> */}
+        <FontAwesomeIcon 
+          className='font-awesome-icon' 
+          icon={faSearch} 
+          alt='Search' 
+          onClick = {handleSearchClick}
+          />
+      </div>
     </div>
 
-    {/* Search icon */}
-    <div className='search-icon'>
-      {/* <img src={searchIcon} alt='Search' /> */}
-      <FontAwesomeIcon className='font-awesome-icon' icon={faSearch} alt='Search' />
-    </div>
   </div>
 </section>
 
