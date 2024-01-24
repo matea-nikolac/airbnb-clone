@@ -6,6 +6,7 @@ import { parseISO } from 'date-fns'
 // import { startSession } from 'mongoose';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import ImageCarousel from './place/ImageCarousel.js'
 
 
 const Home = () => {
@@ -182,6 +183,10 @@ const Home = () => {
 
   }, [selectedCategory])
 
+  //! images carousel 
+
+  
+
 return (
   <>
     <section className='homepage'>
@@ -289,9 +294,7 @@ return (
           const { images, location, price_per_night} = place
           return (
             <div className='place-card' key = {index}>
-              <div className='image-container'>
-                <div className='image-div' style={{ backgroundImage: `url('${images[0]}')` }}></div>
-              </div>
+              <ImageCarousel images = {images}/>
               <p className='location-title'>{location}</p>
               <p className='price-line'><span className='price-text'>€ {price_per_night}</span> night</p>
             </div>
