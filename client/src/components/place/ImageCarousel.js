@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { FaChevronLeft, FaChevronRight, FaCircle } from 'react-icons/fa'
 
 const ImageCarousel = ({images}) => {
 
@@ -32,6 +32,15 @@ const [ currentIndex, setCurrentIndex ] = useState(0)
           <button className='arrow-button next-button' onClick={showNextImage}>
           <FaChevronRight />
         </button>}
+      </div>
+      <div className='navigation-indicators'>
+        {images.map((image, index) => (
+          <FaCircle 
+            key = {index}
+            className = {`indicator ${index === currentIndex? 'active': ''}`}
+
+          />
+        ))}
       </div>
     </div>
   )

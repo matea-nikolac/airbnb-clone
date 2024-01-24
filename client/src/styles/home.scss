@@ -78,9 +78,7 @@
           color: white;
         }
       }
-
     }
-
   }
 
   .categories-container {
@@ -123,7 +121,6 @@
       background-color: white;
       border: none;
       color: #606060;
-      // to ensure that the 'places-container' does not shift downwards when a category is hovered:
       border-bottom: 2px solid transparent; 
       transition: border-bottom 0.2s ease;
     }
@@ -183,6 +180,25 @@
           opacity: 1;
           transform: scale(1.05);
           color:black;
+        }
+      }
+
+      .navigation-indicators{
+        position: absolute;
+        bottom: 5px;
+        width: 100%;
+        display:flex;
+        justify-content: center;
+        color: white;
+        
+        .indicator{
+          width: 6px;
+          margin: 3px;
+          opacity: 0.65;
+          transition: opacity 0.25s ease;
+        }
+        .active{
+          opacity: 1;
         }
       }
     }
