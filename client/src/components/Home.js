@@ -14,11 +14,12 @@ const Home = () => {
   const [ categories, setCategories ] = useState([])
   const [ error, setError ] = useState('')
   const [ filteredPlaces, setFilteredPlaces ] = useState([])
-  const [searchedLocation, setSearchedLocation] = useState('')
-  const [selectedStartDate, setSelectedStartDate] = useState(null)
-  const [selectedEndDate, setSelectedEndDate] = useState(null)
-  const [minEndDate, setMinEndDate] = useState( new Date ())
-  const [selectedGuestNumber, setSelectedGuestNumber] = useState(null)
+  const [ searchedLocation, setSearchedLocation ] = useState('')
+  const [ selectedStartDate, setSelectedStartDate ] = useState(null)
+  const [ selectedEndDate, setSelectedEndDate ] = useState(null)
+  const [ selectedDatesArray, setSelectedDatesArray ] = useState([])
+  const [ minEndDate, setMinEndDate ] = useState( new Date ())
+  const [ selectedGuestNumber, setSelectedGuestNumber ] = useState(null)
 
   //fetch the categories
   useEffect(() => {
@@ -64,8 +65,6 @@ const Home = () => {
   // handle the location search
   const handleWhereInputChange = (e) => {
     setSearchedLocation(e.target.value)
-    const searchedPlaces = places.filter(place => place.location.toLowerCase().includes(searchedLocation.toLowerCase()))
-    setFilteredPlaces(searchedPlaces)
     }
 
   // handle the start date search
@@ -73,18 +72,26 @@ const Home = () => {
     // Parse the selected date to ensure it is represented as a JavaScript Date object
     // `date.toISOString()` converts the selected date to an ISO 8601 string
     // `parseISO` then parses this string into a JavaScript Date object for consistent handling
-    const startDate = parseISO(date.toISOString())
-    console.log(startDate)
-    setSelectedStartDate(startDate)
-
+    console.log(date)
+    if (date !== null) {
+      const startDate = parseISO(date.toISOString())
+      setSelectedStartDate(startDate)
+    } else {
+      setSelectedStartDate('')
+      setSelectedDatesArray('')
+    }
   }
 
   // handle the end date search
   const handleEndDateInputChange = (date) => {
     // const endDate = date.toISOString()
-    const endDate = parseISO(date.toISOString())
-    setSelectedEndDate(endDate)
-
+    if (date !== null) {
+      const endDate = parseISO(date.toISOString())
+      setSelectedEndDate(endDate)
+    } else {
+      setSelectedEndDate('')
+      setSelectedDatesArray([])
+    }
   }
 
   // once both start and end date are selected, check which places are available
@@ -95,27 +102,21 @@ const Home = () => {
 
     // create the dates in range array
     while (currentDate <= selectedEndDate) {
-      const month = currentDate.getUTCMonth() + 1;
-      const day = currentDate.getUTCDate() + 1;
+      const month = currentDate.getMonth() + 1;
+      const day = currentDate.getDate();
       const dateString = `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
       console.log(typeof(dateString))
       datesArray.push(dateString)
       currentDate.setDate(currentDate.getDate() + 1)
     }
 
-    // check if the a place is available on those days
-    places.forEach(place => {
-      const isAvailable = datesArray.every(date => place.availability.includes(date));
-      if (isAvailable) {
-        console.log(`Place "${place.name}" is available on all selected dates`);
-      }
-    });
-
+    setSelectedDatesArray(datesArray)
   }
 
   if (selectedStartDate && selectedEndDate) {
     getDatesInRange()
   }
+
   },[places, selectedStartDate, selectedEndDate]) 
 
   // make sure that the minimal end date is either todayDate, or the selectedStartDate
@@ -129,23 +130,47 @@ const Home = () => {
     }
     },[places, selectedStartDate])
 
-  
   // handle the guest number
   const handleGuestNumber = (e) => {
+    console.log(e.target.value)
     setSelectedGuestNumber(e.target.value)
   }
 
-    
-  // once all field are selected, search for places
-
-  // useEffect(() => {
-
-  // }, [places, searchedLocation, selectedStartDate, selectedEndDate, ])
-  
 
   const handleSearchClick = () => {
-    console.log('CLICKED')
-  }
+    console.log('clicked')
+
+    // if the start date is selected, and end date isn't, automatically set the end date as the next day
+    if (selectedStartDate !== null && selectedEndDate === null ) {
+      const nextDay = new Date(selectedStartDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      setSelectedEndDate(nextDay);
+      
+    }
+
+     // if the end day is selected, and the start date isn't, automatically set the start date as the previous day
+    if (selectedEndDate !== null && selectedStartDate === null ) {
+      const previousDay = new Date(selectedEndDate);
+      previousDay.setDate(previousDay.getDate() - 1);
+      setSelectedStartDate(previousDay);
+      
+    }
+
+    const searchedPlaces = places.filter((place) => {
+      const locationMatch = place.location.toLowerCase().includes(searchedLocation.toLowerCase());
+      const dateMatch = selectedDatesArray.every((date) => place.availability.includes(date));
+      console.log(selectedDatesArray)
+      const guestMatch = place.max_guests >= selectedGuestNumber;
+  
+      // Include the place in the result if all of the criteria match
+      return (locationMatch &&  dateMatch && guestMatch) || null
+    });
+
+    console.log(searchedPlaces)
+  
+    setFilteredPlaces(searchedPlaces);
+  };
+  
 
 return (
   <>
@@ -220,13 +245,12 @@ return (
         />
       </div>
       {/* Search icon */}
-      <div className='search-div'>
+      <div className='search-div' onClick = {handleSearchClick}>
         {/* <img src={searchIcon} alt='Search' /> */}
         <FontAwesomeIcon 
           className='font-awesome-icon' 
           icon={faSearch} 
           alt='Search' 
-          onClick = {handleSearchClick}
           />
       </div>
     </div>
@@ -252,7 +276,7 @@ return (
       {filteredPlaces.length > 0 ?
         filteredPlaces.map((place, index) => {
           // display all the places as cards on the home page
-          const { images, location, price_per_night, availability } = place
+          const { images, location, price_per_night} = place
           return (
             <div className='place-card' key = {index}>
               <div className='image-container'>
