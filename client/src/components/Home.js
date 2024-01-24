@@ -18,6 +18,7 @@ const Home = () => {
   const [ selectedStartDate, setSelectedStartDate ] = useState(null)
   const [ selectedEndDate, setSelectedEndDate ] = useState(null)
   const [ selectedDatesArray, setSelectedDatesArray ] = useState([])
+  const [ selectedCategory, setSelectedCategory ] = useState('')
   const [ minEndDate, setMinEndDate ] = useState( new Date ())
   const [ selectedGuestNumber, setSelectedGuestNumber ] = useState(null)
 
@@ -53,10 +54,10 @@ const Home = () => {
 
    //filter the places based on the selected category
   const filterPlacesByCategory = (category) => {
-    const selectedCategory = category.name
+    setSelectedCategory(category.name)
   
     const placesInsideSelectedCategory = places.filter(place => {
-      return place.category === selectedCategory;
+      return place.category === category.name;
     });
   
     setFilteredPlaces(placesInsideSelectedCategory)
@@ -150,20 +151,20 @@ const Home = () => {
 
      // if the end day is selected, and the start date isn't, automatically set the start date as the previous day
     if (selectedEndDate !== null && selectedStartDate === null ) {
-      const previousDay = new Date(selectedEndDate);
-      previousDay.setDate(previousDay.getDate() - 1);
-      setSelectedStartDate(previousDay);
+      const previousDay = new Date(selectedEndDate)
+      previousDay.setDate(previousDay.getDate() - 1)
+      setSelectedStartDate(previousDay)
       
     }
 
     const searchedPlaces = places.filter((place) => {
-      const locationMatch = place.location.toLowerCase().includes(searchedLocation.toLowerCase());
-      const dateMatch = selectedDatesArray.every((date) => place.availability.includes(date));
-      console.log(selectedDatesArray)
-      const guestMatch = place.max_guests >= selectedGuestNumber;
+      const locationMatch = place.location.toLowerCase().includes(searchedLocation.toLowerCase())
+      const dateMatch = selectedDatesArray.every((date) => place.availability.includes(date))
+      const guestMatch = place.max_guests >= selectedGuestNumber
+      const categoryMatch = place.category === selectedCategory
   
       // Include the place in the result if all of the criteria match
-      return (locationMatch &&  dateMatch && guestMatch) || null
+      return (locationMatch &&  dateMatch && guestMatch && categoryMatch) || null
     });
 
     console.log(searchedPlaces)
