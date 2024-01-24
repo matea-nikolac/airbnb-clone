@@ -143,6 +143,7 @@
       border-radius: 8px;
       overflow: hidden;
       width: 320px;
+      position: relative;
 
       .image-div {
         width: 100%;
@@ -150,6 +151,39 @@
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
+      }
+
+      .prev-button,
+      .next-button {
+        position:absolute;
+        top: 47%;
+      }
+
+      .prev-button {
+        left: 0;
+        margin-left: 10px;
+      }
+      
+      .next-button {
+        right: 0;
+        margin-right: 10px;
+      }
+
+      .arrow-button{
+        opacity: 0.8;
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        font-size: small;
+        border: none;
+        transition: transform 0.2s ease;
+        color:#606060;
+
+        &:hover {
+          opacity: 1;
+          transform: scale(1.05);
+          color:black;
+        }
       }
     }
     .location-title {
