@@ -91,6 +91,7 @@
     .single-category-container {
 
       &:hover {
+        cursor: pointer;
         .category-image-div {
           opacity: 1;
         }

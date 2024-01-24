@@ -51,18 +51,6 @@ const Home = () => {
     getPlaces()
   }, [])
 
-
-   //filter the places based on the selected category
-  const filterPlacesByCategory = (category) => {
-    setSelectedCategory(category.name)
-  
-    const placesInsideSelectedCategory = places.filter(place => {
-      return place.category === category.name;
-    });
-  
-    setFilteredPlaces(placesInsideSelectedCategory)
-  }
-
   // handle the location search
   const handleWhereInputChange = (e) => {
     setSearchedLocation(e.target.value)
@@ -137,6 +125,23 @@ const Home = () => {
     setSelectedGuestNumber(e.target.value)
   }
 
+  // a function that filters places based on search input and category choice
+
+  const filterPlaces = (place) => {
+    const locationMatch = place.location.toLowerCase().includes(searchedLocation.toLowerCase())
+    const dateMatch = selectedDatesArray.every((date) => place.availability.includes(date))
+    const guestMatch = place.max_guests >= selectedGuestNumber
+    const categoryMatch = !selectedCategory || place.category === selectedCategory
+
+    // Include the place in the result if all of the criteria match
+    if (selectedCategory) {
+      return (locationMatch &&  dateMatch && guestMatch && categoryMatch) || null
+    } else {
+      // covering the scenario in the search button is clicked but category isn't selected
+      return (locationMatch &&  dateMatch && guestMatch ) || null
+    }
+  }
+  
 
   const handleSearchClick = () => {
     console.log('clicked')
@@ -148,30 +153,34 @@ const Home = () => {
       setSelectedEndDate(nextDay);
       
     }
-
      // if the end day is selected, and the start date isn't, automatically set the start date as the previous day
     if (selectedEndDate !== null && selectedStartDate === null ) {
       const previousDay = new Date(selectedEndDate)
       previousDay.setDate(previousDay.getDate() - 1)
       setSelectedStartDate(previousDay)
-      
     }
 
-    const searchedPlaces = places.filter((place) => {
-      const locationMatch = place.location.toLowerCase().includes(searchedLocation.toLowerCase())
-      const dateMatch = selectedDatesArray.every((date) => place.availability.includes(date))
-      const guestMatch = place.max_guests >= selectedGuestNumber
-      const categoryMatch = place.category === selectedCategory
-  
-      // Include the place in the result if all of the criteria match
-      return (locationMatch &&  dateMatch && guestMatch && categoryMatch) || null
-    });
+    const searchedPlaces = places.filter((place) => filterPlaces(place))
+    setFilteredPlaces(searchedPlaces)
+  }
 
-    console.log(searchedPlaces)
+
+   //filter the places based on the selected category
+  const filterPlacesByCategory = (category) => {
+    setSelectedCategory(category.name)
+  }
+
+
+  // for the scenario when someone already clicked 'search' but then does category change later
+  useEffect(() => {
+    const performSearch = () => {
+      const searchedPlaces = places.filter((place) => filterPlaces(place))
+      setFilteredPlaces(searchedPlaces)
+    }
   
-    setFilteredPlaces(searchedPlaces);
-  };
-  
+    performSearch()
+
+  }, [selectedCategory])
 
 return (
   <>
