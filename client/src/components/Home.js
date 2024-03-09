@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
-import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { parseISO } from 'date-fns'
-// import { startSession } from 'mongoose';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
+//components
 import ImageCarousel from './place/ImageCarousel.js'
+import LocationSearch from './search/Location.js'
+import StartDate from './search/StartDate.js'
+import EndDate from './search/EndDate.js'
+import GuestNumber from './search/GuestNumber.js'
 
 
 const Home = () => {
@@ -62,7 +65,6 @@ const Home = () => {
     // Parse the selected date to ensure it is represented as a JavaScript Date object
     // `date.toISOString()` converts the selected date to an ISO 8601 string
     // `parseISO` then parses this string into a JavaScript Date object for consistent handling
-    console.log(date)
     if (date !== null) {
       const startDate = parseISO(date.toISOString())
       setSelectedStartDate(startDate)
@@ -192,117 +194,68 @@ return (
     <section className='homepage'>
     <section className='search-container'>
   <div className="search-bar">
-    {/* First item */}
-    <div className='search-item' id='where'>
-      <div className='search-paragraph-and-input'>
-        <div>
-          <p className='search-paragraph'>Where</p>
-        </div>
-        <input
-          type='text'
-          value={searchedLocation}
-          onChange={handleWhereInputChange}
-          placeholder='Search destinations'
-          className='search-input'
-        />
-      </div>
-      <div className='search-item-last-div' id='where'></div>
-    </div>
 
-    {/* Second item */}
-    <div className='search-item' id='start-date'>
-      <div className='search-paragraph-and-input'>
-        <div>
-          <p className='search-paragraph'>Check In</p>
-        </div>
-        <DatePicker
-          selected={selectedStartDate}
-          value={selectedStartDate}
-          minDate = {new Date()}
-          maxDate={selectedEndDate}
-          onChange={handleStartDateInputChange}
-          placeholderText='Add dates'
-          className='search-input'
-        />
-      </div>
-      <div className='search-item-last-div' id='when'></div>
-    </div>
+    {/* Location search */}
+    <LocationSearch
+      searchedLocation={searchedLocation}
+      handleWhereInputChange={handleWhereInputChange}
+    />
 
-     {/* Third item */}
-    <div className='search-item' id='end-date'>
-      <div className='search-paragraph-and-input'>
-        <div>
-          <p className='search-paragraph'>Check Out</p>
-        </div>
-        <DatePicker
-          selected={selectedEndDate}
-          value={selectedEndDate}
-          minDate={minEndDate} 
-          onChange={handleEndDateInputChange}
-          placeholderText='Add dates'
-          className='search-input'
-        />
-      </div>
-      <div className='search-item-last-div' id='when'></div>
-    </div>
+    {/* Start date search*/}
+    <StartDate 
+      selectedStartDate={selectedStartDate}
+      selectedEndDate={selectedEndDate}
+      handleStartDateInputChange={handleStartDateInputChange}
+    />
 
-    {/* Fourth item */}
-    <div className='search-item' id='who'>
-      <div className='search-paragraph-and-input'>
-        <div>
-          <p className='search-paragraph'>Who</p>
-        </div>
-        <input
-          type='number'
-          onInput={(e) => handleGuestNumber(e)}
-          placeholder='Add guests'
-          className='search-input'
-        />
-      </div>
-      {/* Search icon */}
-      <div className='search-div' onClick = {handleSearchClick}>
-        {/* <img src={searchIcon} alt='Search' /> */}
-        <FontAwesomeIcon 
-          className='font-awesome-icon' 
-          icon={faSearch} 
-          alt='Search' 
-          />
-      </div>
-    </div>
+     {/* End date search */}
+    <EndDate 
+      selectedEndDate={selectedEndDate}
+      minEndDate={minEndDate}
+      handleEndDateInputChange={handleEndDateInputChange}
+    />
+
+    {/* Guest number search */}
+    <GuestNumber
+      handleGuestNumber={handleGuestNumber}
+      handleSearchClick={handleSearchClick}
+    />
 
   </div>
 </section>
 
-      <section className="categories-container">
-        {categories && categories.map((category, index) => (
-          <div className='single-category-container' 
-          value={category.name} 
-          onClick={() => filterPlacesByCategory(category)}
-          key = {index}
-          >
-            <div className='category-image'>
-              <div className='category-image-div' style={{ backgroundImage: `url('${category.icon}` }}></div>
-            </div>
-            <button className='category-button'>{category.name}</button>
-          </div>
-        ))}
-      </section>
-      <section className='places-container'>
-      {filteredPlaces.length > 0 ?
-        filteredPlaces.map((place, index) => {
-          // display all the places as cards on the home page
-          const { images, location, price_per_night} = place
-          return (
+<section className="categories-container">
+  {categories && categories.map((category, index) => (
+    <div className='single-category-container' 
+    value={category.name} 
+    onClick={() => filterPlacesByCategory(category)}
+    key = {index}
+    >
+      <div className='category-image'>
+        <div className='category-image-div' style={{ backgroundImage: `url('${category.icon}` }}></div>
+      </div>
+      <button className='category-button'>{category.name}</button>
+    </div>
+  ))}
+  </section>
+  <section className='places-container'>
+    {filteredPlaces.length > 0 ?
+      filteredPlaces.map((place, index) => {
+        // display all the places as cards on the home page
+        const { _id, images, location, price_per_night } = place
+        return (
+          <Link to={`/rooms/${_id}`}>
             <div className='place-card' key = {index}>
               <ImageCarousel images = {images}/>
               <p className='location-title'>{location}</p>
               <p className='price-line'><span className='price-text'>€ {price_per_night}</span> night</p>
             </div>
-          )
-        })
-      :
-      <p>{error.message}</p>}
-    </section>
+          </Link>
+        )
+      })
+    :
+    <p>{error.message}</p>}
+  </section>
   </section>
   </>
 )
