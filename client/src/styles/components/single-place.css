@@ -1,0 +1,50 @@
+.main-container .rental-details-section .title-div {
+  width: 100%;
+}
+.main-container .rental-details-section .rental-images {
+  display: flex;
+  justify-content: center;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+.main-container .rental-details-section .rental-images .first-rental-image {
+  width: 50%;
+  height: 450px;
+}
+.main-container .rental-details-section .rental-images .first-rental-image .rental-image-0 {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  border-top-left-radius: 13px;
+  border-bottom-left-radius: 13px;
+}
+.main-container .rental-details-section .rental-images .other-images-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: 10px;
+  height: 450px;
+  width: 50%;
+}
+.main-container .rental-details-section .rental-images .other-images-container .rental-image {
+  width: calc(50% - 5px);
+  background-position: center;
+  background-size: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.main-container .rental-details-section .rental-images .other-images-container .rental-image-1 {
+  margin-bottom: 10px;
+}
+.main-container .rental-details-section .rental-images .other-images-container .rental-image-2 {
+  margin-bottom: 10px;
+  border-top-right-radius: 13px;
+}
+.main-container .rental-details-section .rental-images .other-images-container .rental-image-4 {
+  border-bottom-right-radius: 13px;
+}
+.main-container .rental-details-section .rental-info-and-pricing {
+  display: flex;
+  justify-content: space-around;
+}/*# sourceMappingURL=single-place.css.map */

@@ -1,22 +1,104 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+.homepage .search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.homepage .search-container .search-bar {
+  display: flex;
+  border: 1px solid rgb(217, 217, 217);
+  border-radius: 40px;
+}
+.homepage .search-container .search-bar .search-item {
+  display: flex;
+  position: relative;
+}
+.homepage .search-container .search-bar .search-item:hover {
+  background-color: #ebebeb;
+  border-radius: 40px;
+  cursor: pointer;
+}
+.homepage .search-container .search-bar .search-item:hover .search-item-last-div {
+  width: 0px;
+}
+.homepage .search-container .search-bar .search-item .search-paragraph-and-input {
+  width: 250px;
+  padding: 10px 40px;
+}
+.homepage .search-container .search-bar .search-item .search-paragraph-and-input .search-paragraph {
+  font-size: 11px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #323232;
+}
+.homepage .search-container .search-bar .search-item .search-paragraph-and-input .search-input {
+  border: none;
+  font-size: 13px;
+  padding-left: 0;
+  background-color: transparent;
+  outline: none;
+}
+.homepage .search-container .search-bar .search-item .search-item-last-div {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 0;
+  bottom: 12px;
+  width: 1px;
+  background-color: #ccc;
+}
+.homepage .search-container .search-bar .search-div {
+  width: 50px;
+  height: 50px;
+  background-color: #ff395c;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 7px 7px 7px 0;
+}
+.homepage .search-container .search-bar .search-div:hover {
+  background-color: #dc1262;
+}
+.homepage .search-container .search-bar .search-div .font-awesome-icon {
+  color: white;
+}
 .homepage .categories-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
-.homepage .categories-container .category-button {
-  font-size: 13px;
-  padding-bottom: 10px;
-  margin: 14px;
-  background-color: white;
-  border: none;
-  color: #5a5a5a;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom 0.2s ease;
+.homepage .categories-container .single-category-container:hover {
+  cursor: pointer;
 }
-.homepage .categories-container .category-button:hover {
+.homepage .categories-container .single-category-container:hover .category-image-div {
+  opacity: 1;
+}
+.homepage .categories-container .single-category-container:hover .category-button {
   color: black;
   border-bottom: 2px solid #c3c2c2;
+}
+.homepage .categories-container .single-category-container .category-image {
+  display: flex;
+  justify-content: center;
+}
+.homepage .categories-container .single-category-container .category-image-div {
+  width: 25px;
+  height: 25px;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.5;
+}
+.homepage .categories-container .single-category-container .category-button {
+  font-size: 13px;
+  padding-bottom: 10px;
+  margin: 7px 14px;
+  font-weight: 500;
+  background-color: white;
+  border: none;
+  color: #606060;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.2s ease;
 }
 .homepage .places-container {
   display: flex;
@@ -29,6 +111,7 @@
   border-radius: 8px;
   overflow: hidden;
   width: 320px;
+  position: relative;
 }
 .homepage .place-card .image-container .image-div {
   width: 100%;
@@ -36,6 +119,51 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+.homepage .place-card .image-container .prev-button,
+.homepage .place-card .image-container .next-button {
+  position: absolute;
+  top: 47%;
+}
+.homepage .place-card .image-container .prev-button {
+  left: 0;
+  margin-left: 10px;
+}
+.homepage .place-card .image-container .next-button {
+  right: 0;
+  margin-right: 10px;
+}
+.homepage .place-card .image-container .arrow-button {
+  opacity: 0.8;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  font-size: small;
+  border: none;
+  transition: transform 0.2s ease;
+  color: #606060;
+}
+.homepage .place-card .image-container .arrow-button:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  color: black;
+}
+.homepage .place-card .image-container .navigation-indicators {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+.homepage .place-card .image-container .navigation-indicators .indicator {
+  width: 6px;
+  margin: 3px;
+  opacity: 0.65;
+  transition: opacity 0.25s ease;
+}
+.homepage .place-card .image-container .navigation-indicators .active {
+  opacity: 1;
 }
 .homepage .place-card .location-title {
   margin-bottom: 0;

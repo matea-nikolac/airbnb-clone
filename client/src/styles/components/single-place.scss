@@ -1,0 +1,62 @@
+.main-container {
+  .rental-details-section {
+    .title-div {
+      width: 100%;
+    }
+
+    .rental-images {
+      display: flex;
+      justify-content: center;
+      padding-left: 200px;
+      padding-right: 200px;
+
+      .first-rental-image {
+        width: 50%;
+        height: 450px;
+        // width: 100%;
+        .rental-image-0 {
+          width: 100%;
+          height: 100%;
+          background-position: center;
+          background-size: cover;
+          border-top-left-radius: 13px;
+          border-bottom-left-radius: 13px;
+        }
+      }
+
+      .other-images-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        margin-left: 10px;
+        height: 450px;
+        width: 50%;
+
+        .rental-image {
+          width: calc(50% - 5px);
+          background-position: center;
+          background-size: cover;
+          object-fit: cover;
+        }
+
+        .rental-image-1 {
+          margin-bottom: 10px;
+        }
+        .rental-image-2 {
+          margin-bottom: 10px;
+          border-top-right-radius: 13px;
+        }
+
+        .rental-image-4 {
+          border-bottom-right-radius: 13px;
+        }
+      }
+    }
+
+    .rental-info-and-pricing {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}
