@@ -86,20 +86,29 @@ const RentalDetails = () => {
               </div>
               <hr />
               {/* Rental description */}
-              <p>Description:</p>
-              <p>{place.description}</p>
-              {/* Render amenities */}
-              {place.amenities.map((amenity, index) => (
-                <p key={index}>{amenity.text}</p>
-              ))}
+              <div className='description-div'>
+                <p>{place.description}</p>
+                {/* Render amenities */}
+                {place.amenities.map((amenity, index) => (
+                  <p key={index}>{amenity.text}</p>
+                ))}
+              </div>
               <hr />
               {/* Render reviews */}
-              <p>Reviews:</p>
+              <h5>
+                {place.reviews.length > 1
+                  ? `${place.reviews.length} reviews`
+                  : `${place.reviews.length} review`}
+              </h5>
               {place.reviews.map((review, index) => (
                 <div key={index}>
                   <p>{review.text}</p>
                 </div>
               ))}
+              <hr />
+              <div className='location-div'>
+                <h5>Where you'll be</h5>
+              </div>
             </div>
             {/* Rental pricing */}
             <div className='rental-pricing'>
