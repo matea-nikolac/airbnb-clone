@@ -10,12 +10,16 @@ const placeSchema = new mongoose.Schema({
   amenities: [String],
   description: { type: String, required: true },
   max_guests: { type: Number, required: true },
+  beds: { type: Number },
+  bedrooms: { type: Number },
+  bathrooms: { type: Number },
   availability: { type: [String], required: true },
   images: [String],
   category: { type: String, required: true },
   location: { type: String, required: true },
   reviews: [reviewSchema],
-  price_per_night: { type: Number, required: true }, 
+  price_per_night: { type: Number, required: true },
+  host: { type: String, required: true },
   //! Add owner here
   //! Add reviews here
 })

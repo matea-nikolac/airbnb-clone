@@ -1,5 +1,7 @@
 .main-container .rental-details-section .title-div {
   width: 100%;
+  padding-left: 200px;
+  padding-bottom: 10px;
 }
 .main-container .rental-details-section .rental-images {
   display: flex;
@@ -46,5 +48,13 @@
 }
 .main-container .rental-details-section .rental-info-and-pricing {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-info {
+  width: 50%;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-info h4 {
+  margin-top: 20px;
 }/*# sourceMappingURL=single-place.css.map */
