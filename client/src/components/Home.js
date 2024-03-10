@@ -1,26 +1,26 @@
-import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import axios from "axios"
-import "react-datepicker/dist/react-datepicker.css"
-import { parseISO } from "date-fns"
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import 'react-datepicker/dist/react-datepicker.css'
+import { parseISO } from 'date-fns'
 
 //components
-import ImageCarousel from "./place/ImageCarousel.js"
-import LocationSearch from "./search/Location.js"
-import StartDate from "./search/StartDate.js"
-import EndDate from "./search/EndDate.js"
-import GuestNumber from "./search/GuestNumber.js"
+import ImageCarousel from './place/ImageCarousel.js'
+import LocationSearch from './search/Location.js'
+import StartDate from './search/StartDate.js'
+import EndDate from './search/EndDate.js'
+import GuestNumber from './search/GuestNumber.js'
 
 const Home = () => {
   const [places, setPlaces] = useState([])
   const [categories, setCategories] = useState([])
-  const [error, setError] = useState("")
+  const [error, setError] = useState('')
   const [filteredPlaces, setFilteredPlaces] = useState([])
-  const [searchedLocation, setSearchedLocation] = useState("")
+  const [searchedLocation, setSearchedLocation] = useState('')
   const [selectedStartDate, setSelectedStartDate] = useState(null)
   const [selectedEndDate, setSelectedEndDate] = useState(null)
   const [selectedDatesArray, setSelectedDatesArray] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState('')
   const [minEndDate, setMinEndDate] = useState(new Date())
   const [selectedGuestNumber, setSelectedGuestNumber] = useState(null)
 
@@ -28,7 +28,7 @@ const Home = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const response = await axios.get("/api/categories")
+        const response = await axios.get('/api/categories')
         const categoryData = response.data
         setCategories(categoryData)
       } catch (error) {
@@ -42,7 +42,7 @@ const Home = () => {
   useEffect(() => {
     const getPlaces = async () => {
       try {
-        const response = await axios.get("/api/places")
+        const response = await axios.get('/api/places')
         const placeData = response.data
         setPlaces(placeData)
         setFilteredPlaces(placeData)
@@ -67,8 +67,8 @@ const Home = () => {
       const startDate = parseISO(date.toISOString())
       setSelectedStartDate(startDate)
     } else {
-      setSelectedStartDate("")
-      setSelectedDatesArray("")
+      setSelectedStartDate('')
+      setSelectedDatesArray('')
     }
   }
 
@@ -79,7 +79,7 @@ const Home = () => {
       const endDate = parseISO(date.toISOString())
       setSelectedEndDate(endDate)
     } else {
-      setSelectedEndDate("")
+      setSelectedEndDate('')
       setSelectedDatesArray([])
     }
   }
@@ -94,9 +94,9 @@ const Home = () => {
       while (currentDate <= selectedEndDate) {
         const month = currentDate.getMonth() + 1
         const day = currentDate.getDate()
-        const dateString = `${month.toString().padStart(2, "0")}-${day
+        const dateString = `${month.toString().padStart(2, '0')}-${day
           .toString()
-          .padStart(2, "0")}`
+          .padStart(2, '0')}`
         console.log(typeof dateString)
         datesArray.push(dateString)
         currentDate.setDate(currentDate.getDate() + 1)
@@ -152,7 +152,7 @@ const Home = () => {
   }
 
   const handleSearchClick = () => {
-    console.log("clicked")
+    console.log('clicked')
 
     // if the start date is selected, and end date isn't, automatically set the end date as the next day
     if (selectedStartDate !== null && selectedEndDate === null) {
@@ -247,16 +247,14 @@ const Home = () => {
               // display all the places as cards on the home page
               const { _id, images, location, price_per_night } = place
               return (
-                <Link to={`/rooms/${_id}`}>
-                  <div className='place-card' key={index}>
-                    <ImageCarousel images={images} />
-                    <p className='location-title'>{location}</p>
-                    <p className='price-line'>
-                      <span className='price-text'>€ {price_per_night}</span>{" "}
-                      night
-                    </p>
-                  </div>
-                </Link>
+                <div className='place-card' key={index}>
+                  <ImageCarousel images={images} _id={_id} />
+                  <p className='location-title'>{location}</p>
+                  <p className='price-line'>
+                    <span className='price-text'>€ {price_per_night}</span>{' '}
+                    night
+                  </p>
+                </div>
               )
             })
           ) : (
