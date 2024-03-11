@@ -105,7 +105,7 @@ const RentalDetails = () => {
           <div className='rental-info-and-pricing'>
             {/* Rental information */}
             <div className='rental-info'>
-              <h4>{place.location}</h4>
+              <p className='place-location'>{place.location}</p>
               {/* Render guest, bedroom, bed, and bathroom quantity */}
               <div className='guest-bedroom-bed-bathroom-quantity'>
                 {place.max_guests > 1
@@ -153,7 +153,7 @@ const RentalDetails = () => {
                 <h5>Where you'll be</h5>
               </div> */}
             </div>
-            {/* Rental pricing */}
+            {/* Rental calendar, guest number and pricing */}
             <div className='rental-pricing-and-calendar'>
               <div className='price-div'>
                 <p>
@@ -162,8 +162,9 @@ const RentalDetails = () => {
                 </p>
               </div>
               <div className='calendar-choice'>
-                {/* Start date search*/}
+                {/* Date search*/}
                 <div className='start-and-end-date'>
+                  {/* Start date search*/}
                   <div className='start-date'>
                     <StartDate
                       selectedStartDate={selectedStartDate}
@@ -171,6 +172,7 @@ const RentalDetails = () => {
                       handleStartDateInputChange={handleStartDateInputChange}
                     />
                   </div>
+                  {/* End date search*/}
                   <div className='end-date'>
                     {/* End date search */}
                     <EndDate
@@ -180,6 +182,7 @@ const RentalDetails = () => {
                     />
                   </div>
                 </div>
+                {/* Selecting the number of guests */}
                 <div className='guest-number'>
                   <GuestNumber
                     handleGuestNumber={handleGuestNumber}
@@ -187,8 +190,29 @@ const RentalDetails = () => {
                   />
                 </div>
               </div>
+              {/* Reservation button */}
               <div className='reservation-button-container'>
                 <button className='reserve-button'>Reserve</button>
+              </div>
+              {/* Price breakdown */}
+              <div className='price-breakdown'>
+                <div className='price-item'>
+                  <span className='left-span'>€ 199 x 5 nights</span>
+                  <span>€ 995</span>
+                </div>
+                <div className='price-item'>
+                  <span className='left-span'>Airbnb service fee</span>
+                  <span>€ 169</span>
+                </div>
+                <div className='price-item'>
+                  <span className='left-span'>Taxes</span>
+                  <span>€ 13</span>
+                </div>
+                <hr />
+                <div className='price-item total-price'>
+                  <span>Total</span>
+                  <span>€ 1,177</span>
+                </div>
               </div>
             </div>
           </div>

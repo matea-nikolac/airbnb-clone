@@ -30,22 +30,22 @@
         flex-wrap: wrap;
         justify-content: space-between;
 
-        margin-left: 10px;
+        margin-left: 8px;
         height: 450px;
         width: 50%;
 
         .rental-image {
-          width: calc(50% - 5px);
+          width: calc(50% - 4px);
           background-position: center;
           background-size: cover;
           object-fit: cover;
         }
 
         .rental-image-1 {
-          margin-bottom: 10px;
+          margin-bottom: 8px;
         }
         .rental-image-2 {
-          margin-bottom: 10px;
+          margin-bottom: 8px;
           border-top-right-radius: 13px;
         }
 
@@ -65,8 +65,15 @@
         width: 80%;
         margin-right: 100px;
 
-        h4 {
-          margin-top: 20px;
+        .guest-bedroom-bed-bathroom-quantity {
+          font-size: 15px;
+        }
+
+        .place-location {
+          margin-top: 27px;
+          margin-bottom: 0;
+          font-size: 23px;
+          font-weight: 500;
         }
       }
 
@@ -75,7 +82,7 @@
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         border-radius: 12px;
         margin-top: 30px;
-        padding: 20px;
+        padding: 23px;
         width: 370px;
 
         .price-div {
@@ -132,6 +139,12 @@
           .reserve-button {
             width: 100%;
             height: 50px;
+            color: white;
+            font-weight: 500;
+            border: transparent;
+            border-radius: 10px;
+            margin-top: 15px;
+            margin-bottom: 15px;
             background: linear-gradient(
               to right,
               #e61d4f,
@@ -146,11 +159,6 @@
               #da0b65,
               #d80665
             );
-            color: white;
-            font-weight: 500;
-            border: transparent;
-            border-radius: 10px;
-            margin-top: 15px;
           }
 
           .reserve-button:hover {
@@ -168,6 +176,23 @@
               #e51d54,
               #e61d4f
             );
+          }
+        }
+
+        .price-breakdown {
+          display: flex;
+          flex-direction: column;
+          .price-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            margin-bottom: 15px;
+            .left-span {
+              text-decoration: 0.8px underline;
+            }
+          }
+          .total-price {
+            font-weight: 600;
           }
         }
       }
