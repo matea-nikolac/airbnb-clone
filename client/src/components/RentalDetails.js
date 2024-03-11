@@ -1,12 +1,23 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import { parseISO } from 'date-fns'
+
+//components
 import SpinnerComponent from './common/Spinner'
+import StartDate from './search/StartDate'
+import EndDate from './search/EndDate'
+import GuestNumber from './search/GuestNumber'
 
 const RentalDetails = () => {
   // State variables
   const [error, setError] = useState('')
   const [place, setPlace] = useState(null)
+  const [selectedStartDate, setSelectedStartDate] = useState(null)
+  const [selectedEndDate, setSelectedEndDate] = useState(null)
+  const [selectedDatesArray, setSelectedDatesArray] = useState([])
+  const [minEndDate, setMinEndDate] = useState(new Date())
+  const [selectedGuestNumber, setSelectedGuestNumber] = useState(null)
 
   // Get the id parameter from the URL
   const { id } = useParams()
@@ -25,6 +36,38 @@ const RentalDetails = () => {
 
     getRental()
   }, [id])
+
+  // handle the start date search
+  const handleStartDateInputChange = (date) => {
+    // Parse the selected date to ensure it is represented as a JavaScript Date object
+    // `date.toISOString()` converts the selected date to an ISO 8601 string
+    // `parseISO` then parses this string into a JavaScript Date object for consistent handling
+    if (date !== null) {
+      const startDate = parseISO(date.toISOString())
+      setSelectedStartDate(startDate)
+    } else {
+      setSelectedStartDate('')
+      setSelectedDatesArray('')
+    }
+  }
+
+  // handle the end date search
+  const handleEndDateInputChange = (date) => {
+    // const endDate = date.toISOString()
+    if (date !== null) {
+      const endDate = parseISO(date.toISOString())
+      setSelectedEndDate(endDate)
+    } else {
+      setSelectedEndDate('')
+      setSelectedDatesArray([])
+    }
+  }
+
+  // handle the guest number
+  const handleGuestNumber = (e) => {
+    console.log(e.target.value)
+    setSelectedGuestNumber(e.target.value)
+  }
 
   // Render the JSX
   return (
@@ -106,13 +149,47 @@ const RentalDetails = () => {
                 </div>
               ))}
               <hr />
-              <div className='location-div'>
+              {/* <div className='location-div'>
                 <h5>Where you'll be</h5>
-              </div>
+              </div> */}
             </div>
             {/* Rental pricing */}
-            <div className='rental-pricing'>
-              <p>Rental pricing</p>
+            <div className='rental-pricing-and-calendar'>
+              <div className='price-div'>
+                <p>
+                  <span className='price-span'>€ {place.price_per_night}</span>{' '}
+                  night
+                </p>
+              </div>
+              <div className='calendar-choice'>
+                {/* Start date search*/}
+                <div className='start-and-end-date'>
+                  <div className='start-date'>
+                    <StartDate
+                      selectedStartDate={selectedStartDate}
+                      selectedEndDate={selectedEndDate}
+                      handleStartDateInputChange={handleStartDateInputChange}
+                    />
+                  </div>
+                  <div className='end-date'>
+                    {/* End date search */}
+                    <EndDate
+                      selectedEndDate={selectedEndDate}
+                      minEndDate={minEndDate}
+                      handleEndDateInputChange={handleEndDateInputChange}
+                    />
+                  </div>
+                </div>
+                <div className='guest-number'>
+                  <GuestNumber
+                    handleGuestNumber={handleGuestNumber}
+                    // handleSearchClick={handleSearchClick}
+                  />
+                </div>
+              </div>
+              <div className='reservation-button-container'>
+                <button className='reserve-button'>Reserve</button>
+              </div>
             </div>
           </div>
         </div>

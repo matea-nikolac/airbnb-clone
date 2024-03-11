@@ -204,6 +204,7 @@ const Home = () => {
               selectedStartDate={selectedStartDate}
               selectedEndDate={selectedEndDate}
               handleStartDateInputChange={handleStartDateInputChange}
+              isHomePage={true}
             />
 
             {/* End date search */}
@@ -211,12 +212,14 @@ const Home = () => {
               selectedEndDate={selectedEndDate}
               minEndDate={minEndDate}
               handleEndDateInputChange={handleEndDateInputChange}
+              isHomePage={true}
             />
 
             {/* Guest number search */}
             <GuestNumber
               handleGuestNumber={handleGuestNumber}
               handleSearchClick={handleSearchClick}
+              isHomePage={true}
             />
           </div>
         </section>

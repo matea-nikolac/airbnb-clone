@@ -62,10 +62,113 @@
       padding-right: 200px;
 
       .rental-info {
-        width: 60%;
+        width: 80%;
+        margin-right: 100px;
 
         h4 {
           margin-top: 20px;
+        }
+      }
+
+      .rental-pricing-and-calendar {
+        border: 1px solid #dddddd;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        margin-top: 30px;
+        padding: 20px;
+        width: 370px;
+
+        .price-div {
+          padding-bottom: 9px;
+          padding-top: 9px;
+          .price-span {
+            font-size: larger;
+            font-weight: 600;
+          }
+        }
+
+        .calendar-choice {
+          border: 0.8px solid #414141;
+          border-radius: 10px;
+
+          .search-paragraph-and-input {
+            padding: 12px 5px 12px 12px;
+
+            .search-paragraph {
+              font-size: 10px;
+              margin-bottom: 0;
+              font-weight: 600;
+            }
+
+            .search-input {
+              border: none;
+              font-size: 13px;
+              padding-left: 0;
+              background-color: transparent;
+            }
+          }
+
+          .start-and-end-date {
+            display: flex;
+
+            .start-date {
+              width: 100%;
+              border-right: 0.5px solid #000;
+            }
+
+            .end-date {
+              width: 100%;
+            }
+          }
+
+          .guest-number {
+            width: 100%;
+            display: flex;
+            border-top: 0.5px solid #000;
+          }
+        }
+
+        .reservation-button-container {
+          .reserve-button {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(
+              to right,
+              #e61d4f,
+              #e51d54,
+              #e41c57,
+              #e31b5e,
+              #e21a60,
+              #df1561,
+              #de1661,
+              #dd1262,
+              #db1163,
+              #da0b65,
+              #d80665
+            );
+            color: white;
+            font-weight: 500;
+            border: transparent;
+            border-radius: 10px;
+            margin-top: 15px;
+          }
+
+          .reserve-button:hover {
+            background: linear-gradient(
+              to right,
+              #d80665,
+              #da0b65,
+              #db1163,
+              #dd1262,
+              #de1661,
+              #df1561,
+              #e21a60,
+              #e31b5e,
+              #e41c57,
+              #e51d54,
+              #e61d4f
+            );
+          }
         }
       }
     }

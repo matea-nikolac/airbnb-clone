@@ -1,5 +1,4 @@
 .homepage {
-
   .search-container {
     display: flex;
     justify-content: center;
@@ -25,29 +24,28 @@
           }
         }
 
+        .search-paragraph-and-input {
+          width: 250px;
+          // margin: 0 12px;
+          padding: 10px 40px;
 
-        .search-paragraph-and-input{
-        width: 250px;
-        // margin: 0 12px;
-        padding: 10px 40px;
+          .search-paragraph {
+            font-size: 11px;
+            margin-bottom: 0;
+            font-weight: 600;
+            color: #323232;
+          }
 
-        .search-paragraph{
-          font-size: 11px;
-          margin-bottom: 0;
-          font-weight: 600;
-          color: #323232;
+          .search-input {
+            border: none;
+            font-size: 13px;
+            padding-left: 0;
+            background-color: transparent;
+            outline: none;
+          }
         }
 
-      .search-input {
-        border: none;
-        font-size: 13px;
-        padding-left: 0;
-        background-color: transparent;
-        outline: none;
-        }
-      }
-
-        .search-item-last-div{
+        .search-item-last-div {
           content: '';
           position: absolute;
           top: 12px;
@@ -58,18 +56,17 @@
         }
       }
 
-
       .search-div {
         // background-color:#ff395c;
         width: 50px;
         height: 50px;
-        background-color:#ff395c;
+        background-color: #ff395c;
         border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 7px 7px 7px 0;
-        
+
         &:hover {
           background-color: #dc1262;
         }
@@ -87,14 +84,13 @@
     justify-content: center;
 
     .single-category-container {
-
       &:hover {
         cursor: pointer;
         .category-image-div {
           opacity: 1;
         }
         .category-button {
-          color:black;
+          color: black;
           border-bottom: 2px solid #c3c2c2;
         }
       }
@@ -102,7 +98,7 @@
       .category-image {
         display: flex;
         justify-content: center;
-        }
+      }
 
       .category-image-div {
         width: 25px;
@@ -110,21 +106,20 @@
         background-position: center;
         background-size: cover;
         opacity: 0.5;
-
       }
 
-    .category-button {
-      font-size: 13px;
-      padding-bottom: 10px;
-      margin: 7px 14px;
-      font-weight: 500;
-      background-color: white;
-      border: none;
-      color: #606060;
-      border-bottom: 2px solid transparent; 
-      transition: border-bottom 0.2s ease;
+      .category-button {
+        font-size: 13px;
+        padding-bottom: 10px;
+        margin: 7px 14px;
+        font-weight: 500;
+        background-color: white;
+        border: none;
+        color: #606060;
+        border-bottom: 2px solid transparent;
+        transition: border-bottom 0.2s ease;
+      }
     }
-  }
   }
 
   .places-container {
@@ -152,7 +147,7 @@
 
       .prev-button,
       .next-button {
-        position:absolute;
+        position: absolute;
         top: 47%;
       }
 
@@ -160,13 +155,13 @@
         left: 0;
         margin-left: 10px;
       }
-      
+
       .next-button {
         right: 0;
         margin-right: 10px;
       }
 
-      .arrow-button{
+      .arrow-button {
         opacity: 0.8;
         border-radius: 50%;
         width: 34px;
@@ -174,30 +169,30 @@
         font-size: small;
         border: none;
         transition: transform 0.2s ease;
-        color:#606060;
+        color: #606060;
 
         &:hover {
           opacity: 1;
           transform: scale(1.05);
-          color:black;
+          color: black;
         }
       }
 
-      .navigation-indicators{
+      .navigation-indicators {
         position: absolute;
         bottom: 5px;
         width: 100%;
-        display:flex;
+        display: flex;
         justify-content: center;
         color: white;
-        
-        .indicator{
+
+        .indicator {
           width: 6px;
           margin: 3px;
           opacity: 0.65;
           transition: opacity 0.25s ease;
         }
-        .active{
+        .active {
           opacity: 1;
         }
       }
