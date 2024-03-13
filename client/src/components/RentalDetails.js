@@ -18,6 +18,7 @@ const RentalDetails = () => {
   const [selectedDatesArray, setSelectedDatesArray] = useState([])
   const [minEndDate, setMinEndDate] = useState(new Date())
   const [selectedGuestNumber, setSelectedGuestNumber] = useState(null)
+  const [maxGuestNumber, setMaxGuestNumber] = useState(null)
 
   // Get the id parameter from the URL
   const { id } = useParams()
@@ -36,6 +37,19 @@ const RentalDetails = () => {
 
     getRental()
   }, [id])
+
+  // set max guest number
+  useEffect(() => {
+    const getMaxGuestNumber = async () => {
+      try {
+        setMaxGuestNumber(place.max_guests)
+      } catch (error) {
+        setError(error.message)
+      }
+    }
+
+    getMaxGuestNumber()
+  }, [place])
 
   // handle the start date search
   const handleStartDateInputChange = (date) => {
@@ -62,6 +76,18 @@ const RentalDetails = () => {
       setSelectedDatesArray([])
     }
   }
+
+  useEffect(() => {
+    const handleMinEndDate = () => {
+      const todayDate = new Date()
+      setMinEndDate(
+        selectedStartDate > todayDate ? selectedStartDate : todayDate
+      )
+    }
+    if (selectedStartDate) {
+      handleMinEndDate()
+    }
+  }, [place, selectedStartDate])
 
   // handle the guest number
   const handleGuestNumber = (e) => {
@@ -186,6 +212,7 @@ const RentalDetails = () => {
                 <div className='guest-number'>
                   <GuestNumber
                     handleGuestNumber={handleGuestNumber}
+                    maxGuestNumber={maxGuestNumber}
                     // handleSearchClick={handleSearchClick}
                   />
                 </div>
