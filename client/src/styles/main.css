@@ -175,6 +175,156 @@
   font-weight: bold;
 }
 
+.main-container .rental-details-section .title-div {
+  width: 100%;
+  padding-left: 200px;
+  padding-bottom: 10px;
+}
+.main-container .rental-details-section .rental-images {
+  display: flex;
+  justify-content: center;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+.main-container .rental-details-section .rental-images .first-rental-image {
+  width: 50%;
+  height: 450px;
+}
+.main-container .rental-details-section .rental-images .first-rental-image .rental-image-0 {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  border-top-left-radius: 13px;
+  border-bottom-left-radius: 13px;
+}
+.main-container .rental-details-section .rental-images .other-images-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: 8px;
+  height: 450px;
+  width: 50%;
+}
+.main-container .rental-details-section .rental-images .other-images-container .rental-image {
+  width: calc(50% - 4px);
+  background-position: center;
+  background-size: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.main-container .rental-details-section .rental-images .other-images-container .rental-image-1 {
+  margin-bottom: 8px;
+}
+.main-container .rental-details-section .rental-images .other-images-container .rental-image-2 {
+  margin-bottom: 8px;
+  border-top-right-radius: 13px;
+}
+.main-container .rental-details-section .rental-images .other-images-container .rental-image-4 {
+  border-bottom-right-radius: 13px;
+}
+.main-container .rental-details-section .rental-info-and-pricing {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-info {
+  width: 80%;
+  margin-right: 100px;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-info .guest-bedroom-bed-bathroom-quantity {
+  font-size: 15px;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-info .place-location {
+  margin-top: 27px;
+  margin-bottom: 0;
+  font-size: 23px;
+  font-weight: 500;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar {
+  border: 1px solid #dddddd;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  margin-top: 30px;
+  padding: 23px;
+  width: 370px;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .price-div {
+  padding-bottom: 9px;
+  padding-top: 9px;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .price-div .price-span {
+  font-size: larger;
+  font-weight: 600;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .calendar-choice {
+  border: 0.8px solid #414141;
+  border-radius: 10px;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .calendar-choice .search-paragraph-and-input {
+  padding: 12px 5px 12px 12px;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .calendar-choice .search-paragraph-and-input .search-paragraph {
+  font-size: 10px;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .calendar-choice .search-paragraph-and-input .search-input {
+  border: none;
+  font-size: 13px;
+  padding-left: 0;
+  background-color: transparent;
+  outline: none;
+  width: 100px;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .calendar-choice .start-and-end-date {
+  display: flex;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .calendar-choice .start-and-end-date .start-date {
+  width: 100%;
+  border-right: 0.5px solid #000;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .calendar-choice .start-and-end-date .end-date {
+  width: 100%;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .calendar-choice .guest-number {
+  width: 100%;
+  display: flex;
+  border-top: 0.5px solid #000;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .reservation-button-container .reserve-button {
+  width: 100%;
+  height: 50px;
+  color: white;
+  font-weight: 500;
+  border: transparent;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background: linear-gradient(to right, #e61d4f, #e51d54, #e41c57, #e31b5e, #e21a60, #df1561, #de1661, #dd1262, #db1163, #da0b65, #d80665);
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .reservation-button-container .reserve-button:hover {
+  background: linear-gradient(to right, #d80665, #da0b65, #db1163, #dd1262, #de1661, #df1561, #e21a60, #e31b5e, #e41c57, #e51d54, #e61d4f);
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .price-breakdown {
+  display: flex;
+  flex-direction: column;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .price-breakdown .price-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .price-breakdown .price-item .left-span {
+  -webkit-text-decoration: 0.8px underline;
+          text-decoration: 0.8px underline;
+}
+.main-container .rental-details-section .rental-info-and-pricing .rental-pricing-and-calendar .price-breakdown .total-price {
+  font-weight: 600;
+}
+
 * {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;

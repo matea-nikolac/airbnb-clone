@@ -1,23 +1,22 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from './components/Home';
-import PageNavbar from './common/PageNavbar';
-import RentalDetails from './components/RentalDetails';
+import Home from './components/Home'
+import PageNavbar from './common/PageNavbar'
+import RentalDetails from './components/RentalDetails'
+import Footer from './components/common/Footer'
 
 const App = () => {
-
   return (
     <div className='main-container'>
       <BrowserRouter>
-        <PageNavbar/>
+        <PageNavbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/rooms/:id" element={<RentalDetails />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/rooms/:id' element={<RentalDetails />} />
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
       </BrowserRouter>
     </div>
   )
 }
 
-
-export default App;
+export default App
