@@ -184,17 +184,23 @@
         .price-breakdown {
           display: flex;
           flex-direction: column;
-          .price-item {
-            display: flex;
-            justify-content: space-between;
-            font-size: 15px;
-            margin-bottom: 0;
-            .left-span {
-              text-decoration: 0.8px underline;
+          .price-items {
+            padding-bottom: 8px;
+            .price-item {
+              display: flex;
+              justify-content: space-between;
+              font-size: 15px;
+              padding-top: 17px;
+              .left-span {
+                text-decoration: 0.8px underline;
+              }
             }
           }
           .total-price {
             font-weight: 600;
+            padding-top: 8px;
+            display: flex;
+            justify-content: space-between;
           }
         }
       }

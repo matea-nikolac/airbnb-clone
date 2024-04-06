@@ -232,7 +232,7 @@ const RentalDetails = () => {
             {/* Rental calendar, guest number and pricing */}
             <div
               className='rental-pricing-and-calendar'
-              style={{ height: numberOfDays === null ? '300px' : '420px' }}
+              style={{ height: numberOfDays === null ? '300px' : '470px' }}
             >
               <div className='price-div'>
                 <p>
@@ -280,24 +280,21 @@ const RentalDetails = () => {
               {/* Price breakdown */}
               {numberOfDays !== null && (
                 <div className='price-breakdown'>
-                  <div className='price-item'>
-                    <span className='left-span'>
-                      € {place.price_per_night} x {numberOfDays} nights
-                    </span>
-                    <span>€ {accommodationCost}</span>
+                  <div className='price-items'>
+                    <div className='price-item'>
+                      <span className='left-span'>
+                        € {place.price_per_night} x {numberOfDays} nights
+                      </span>
+                      <span>€ {accommodationCost}</span>
+                    </div>
+                    <div className='price-item'>
+                      <span className='left-span'>Airbnb service fee</span>
+                      <span>€ {serviceFee}</span>
+                    </div>
                   </div>
-                  <div className='price-item'>
-                    <span className='left-span'>Airbnb service fee</span>
-                    <span>€ {serviceFee}</span>
-                  </div>
-                  {/* <div className='price-item'>
-                    <span className='left-span'>Taxes</span>
-                    <span>€ 13</span>
-                  </div> */}
                   <hr />
                   <div className='price-item total-price'>
-                    <span>Total</span>
-                    {/* */}
+                    <span className='left-span'>Total</span>
                     <span>€ {accommodationCost + serviceFee}</span>
                   </div>
                 </div>
