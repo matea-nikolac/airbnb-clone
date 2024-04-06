@@ -23,7 +23,6 @@ const RentalDetails = () => {
   const [accommodationCost, setAccommodationCost] = useState(null)
   const [totalPrice, setTotalPrice] = useState(null)
   const [serviceFee, setServiceFee] = useState(null)
-  const [parentDivHeight, setParentDivHeight] = useState(null)
 
   // Get the id parameter from the URL
   const { id } = useParams()

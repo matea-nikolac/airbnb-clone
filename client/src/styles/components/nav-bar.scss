@@ -1,0 +1,48 @@
+.navbar {
+  .nav-logo {
+    width: 100px;
+  }
+
+  .nav-right-hand-side {
+    width: 280px;
+    display: flex;
+    justify-content: space-between;
+
+    .airbnb-your-home {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+
+      .nav-link {
+        font-size: 15px;
+      }
+    }
+
+    .toggle-menu {
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid rgb(217, 217, 217);
+      padding: 10px;
+      width: 110px;
+      border-radius: 40px;
+
+      .toggle-icon {
+        border: none;
+        background-color: white;
+        width: 20px;
+        background-color: transparent;
+        padding-top: 4px;
+        width: 40px;
+        height: 3px;
+      }
+
+      .person-icon {
+        width: 30px;
+      }
+    }
+
+    .toggle-menu:hover {
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+  }
+}

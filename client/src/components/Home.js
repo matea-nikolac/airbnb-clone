@@ -224,6 +224,8 @@ const Home = () => {
           </div>
         </section>
 
+        <hr className='separator' />
+
         <section className='categories-container'>
           {categories &&
             categories.map((category, index) => (
