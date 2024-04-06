@@ -18,7 +18,11 @@ const RentalDetails = () => {
   const [selectedDatesArray, setSelectedDatesArray] = useState([])
   const [minEndDate, setMinEndDate] = useState(new Date())
   const [selectedGuestNumber, setSelectedGuestNumber] = useState(null)
+  const [numberOfDays, setNumberOfDays] = useState(null)
   const [maxGuestNumber, setMaxGuestNumber] = useState(null)
+  const [accommodationCost, setAccommodationCost] = useState(null)
+  const [totalPrice, setTotalPrice] = useState(null)
+  const [serviceFee, setServiceFee] = useState(null)
 
   // Get the id parameter from the URL
   const { id } = useParams()
@@ -30,6 +34,7 @@ const RentalDetails = () => {
         const response = await axios.get(`/api/places/${id}`)
         const placeData = response.data
         setPlace(placeData)
+        console.log(placeData)
       } catch (error) {
         setError(error.message)
       }
@@ -76,6 +81,50 @@ const RentalDetails = () => {
       setSelectedDatesArray([])
     }
   }
+
+  useEffect(() => {
+    const calculateNumberOfDays = () => {
+      if (selectedStartDate && selectedEndDate) {
+        const date1 = new Date(selectedStartDate)
+        const date2 = new Date(selectedEndDate)
+        const timeDifference = date2.getTime() - date1.getTime()
+        const daysDifference = Math.round(timeDifference / (1000 * 3600 * 24))
+        setNumberOfDays(daysDifference)
+      }
+    }
+    calculateNumberOfDays()
+  }, [selectedStartDate, selectedEndDate])
+
+  // setPricePerNight
+
+  useEffect(() => {
+    const calculatePricePerNight = () => {
+      if (numberOfDays && place) {
+        setAccommodationCost(numberOfDays * place.price_per_night)
+        setServiceFee(Math.ceil(0.16 * place.price_per_night))
+      }
+
+      // console.log(numberOfDays, place.price_per_night)
+    }
+    calculatePricePerNight()
+  }, [numberOfDays, place])
+
+  useEffect(() => {
+    const calculatePricePerNight = () => {
+      if (numberOfDays && place) {
+        if (selectedGuestNumber <= 2) {
+          setAccommodationCost(numberOfDays * place.price_per_night)
+          setServiceFee(Math.ceil(0.16 * place.price_per_night))
+        } else {
+          setAccommodationCost(Math.ceil(accommodationCost * 1.17))
+          setServiceFee(Math.ceil(serviceFee * 1.2))
+        }
+      }
+
+      // console.log(numberOfDays, place.price_per_night)
+    }
+    calculatePricePerNight()
+  }, [selectedGuestNumber, place])
 
   useEffect(() => {
     const handleMinEndDate = () => {
@@ -213,6 +262,7 @@ const RentalDetails = () => {
                   <GuestNumber
                     handleGuestNumber={handleGuestNumber}
                     maxGuestNumber={maxGuestNumber}
+                    selectedGuestNumber={selectedGuestNumber}
                     // handleSearchClick={handleSearchClick}
                   />
                 </div>
@@ -222,25 +272,30 @@ const RentalDetails = () => {
                 <button className='reserve-button'>Reserve</button>
               </div>
               {/* Price breakdown */}
-              <div className='price-breakdown'>
-                <div className='price-item'>
-                  <span className='left-span'>€ 199 x 5 nights</span>
-                  <span>€ 995</span>
+              {numberOfDays && (
+                <div className='price-breakdown'>
+                  <div className='price-item'>
+                    <span className='left-span'>
+                      € {place.price_per_night} x {numberOfDays} nights
+                    </span>
+                    <span>€ {accommodationCost}</span>
+                  </div>
+                  <div className='price-item'>
+                    <span className='left-span'>Airbnb service fee</span>
+                    <span>€ {serviceFee}</span>
+                  </div>
+                  {/* <div className='price-item'>
+                    <span className='left-span'>Taxes</span>
+                    <span>€ 13</span>
+                  </div> */}
+                  <hr />
+                  <div className='price-item total-price'>
+                    <span>Total</span>
+                    {/* */}
+                    <span>€ {accommodationCost + serviceFee}</span>
+                  </div>
                 </div>
-                <div className='price-item'>
-                  <span className='left-span'>Airbnb service fee</span>
-                  <span>€ 169</span>
-                </div>
-                <div className='price-item'>
-                  <span className='left-span'>Taxes</span>
-                  <span>€ 13</span>
-                </div>
-                <hr />
-                <div className='price-item total-price'>
-                  <span>Total</span>
-                  <span>€ 1,177</span>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
