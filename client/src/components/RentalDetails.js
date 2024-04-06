@@ -23,6 +23,7 @@ const RentalDetails = () => {
   const [accommodationCost, setAccommodationCost] = useState(null)
   const [totalPrice, setTotalPrice] = useState(null)
   const [serviceFee, setServiceFee] = useState(null)
+  const [parentDivHeight, setParentDivHeight] = useState(null)
 
   // Get the id parameter from the URL
   const { id } = useParams()
@@ -138,7 +139,7 @@ const RentalDetails = () => {
     }
   }, [place, selectedStartDate])
 
-  // handle the guest number
+  // Hhndle the guest number
   const handleGuestNumber = (e) => {
     console.log(e.target.value)
     setSelectedGuestNumber(e.target.value)
@@ -229,7 +230,10 @@ const RentalDetails = () => {
               </div> */}
             </div>
             {/* Rental calendar, guest number and pricing */}
-            <div className='rental-pricing-and-calendar'>
+            <div
+              className='rental-pricing-and-calendar'
+              style={{ height: numberOfDays === null ? '300px' : '420px' }}
+            >
               <div className='price-div'>
                 <p>
                   <span className='price-span'>€ {place.price_per_night}</span>{' '}
@@ -269,10 +273,12 @@ const RentalDetails = () => {
               </div>
               {/* Reservation button */}
               <div className='reservation-button-container'>
-                <button className='reserve-button'>Reserve</button>
+                <button className='reserve-button'>
+                  {numberOfDays ? 'Reserve' : 'Check Availability'}
+                </button>
               </div>
               {/* Price breakdown */}
-              {numberOfDays && (
+              {numberOfDays !== null && (
                 <div className='price-breakdown'>
                   <div className='price-item'>
                     <span className='left-span'>

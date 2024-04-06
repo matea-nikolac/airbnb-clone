@@ -16,7 +16,6 @@ const GuestNumber = ({
   maxGuestNumber,
   selectedGuestNumber,
 }) => {
-  console.log(selectedGuestNumber)
   return (
     <div className='search-item' id='who'>
       <div className='search-paragraph-and-input'>
@@ -30,6 +29,7 @@ const GuestNumber = ({
           className='search-input'
           min='1'
           max={maxGuestNumber}
+          defaultValue='1'
         />
       </div>
       {/* Search icon */}
